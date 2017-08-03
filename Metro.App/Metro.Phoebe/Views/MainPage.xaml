@@ -16,39 +16,6 @@
     </Page.DataContext>
 
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
-                <VisualState x:Name="VisualStateNarrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO: change properties for narrow view  -->
-                        <Setter Target="stateTextBox.Text" Value="Narrow Visual State" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="VisualStateNormal">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO: change properties for normal view  -->
-                        <Setter Target="stateTextBox.Text" Value="Normal Visual State" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="VisualStateWide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--  TODO: change properties for wide view  -->
-                        <Setter Target="stateTextBox.Text" Value="Wide Visual State" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <controls:PageHeader x:Name="pageHeader"
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
@@ -71,40 +38,39 @@
                        RelativePanel.Below="pageHeader">
 
 
-            <controls:Resizer x:Name="parameterResizer" Margin="16,16,16,0">
 
-                <TextBox MinWidth="150"
-                         MinHeight="62"
-                         Header="Parameter to pass"
-                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         TextWrapping="Wrap">
-                    <Interactivity:Interaction.Behaviors>
+            <TextBox MinWidth="150"
+                     Name="StockTicksTB"
+                        MinHeight="62"
+                        Header="Stock Ticks"
+                        Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="NoWrap">
+                <Interactivity:Interaction.Behaviors>
 
-                        <!--  enable submit on enter key  -->
-                        <Behaviors:KeyBehavior Key="Enter">
-                            <Core:CallMethodAction MethodName="GotoDetailsPage" TargetObject="{Binding}" />
-                        </Behaviors:KeyBehavior>
+                    <!--  enable submit on enter key  -->
+                    <Behaviors:KeyBehavior Key="Enter">
+                        <Core:CallMethodAction MethodName="LoadStockChart" TargetObject="{Binding}" />
+                    </Behaviors:KeyBehavior>
 
-                        <!--  focus on textbox when page loads  -->
-                        <Core:EventTriggerBehavior>
-                            <Behaviors:FocusAction />
-                        </Core:EventTriggerBehavior>
+                    <!--  focus on textbox when page loads  -->
+                    <Core:EventTriggerBehavior>
+                        <Behaviors:FocusAction />
+                    </Core:EventTriggerBehavior>
 
-                    </Interactivity:Interaction.Behaviors>
-                </TextBox>
+                </Interactivity:Interaction.Behaviors>
+            </TextBox>
 
-            </controls:Resizer>
 
             <Button x:Name="submitButton"
                     Click="{x:Bind ViewModel.GotoDetailsPage}"
                     Content="Submit"
-                    RelativePanel.AlignBottomWith="parameterResizer"
-                    RelativePanel.RightOf="parameterResizer" />
+                    RelativePanel.AlignBottomWith="StockTicksTB"
+                    RelativePanel.RightOf="StockTicksTB" />
 
             <TextBlock x:Name="stateTextBox"
                        Margin="16,16,0,0"
-                       RelativePanel.AlignLeftWith="parameterResizer"
-                       RelativePanel.Below="parameterResizer"
+                       RelativePanel.AlignLeftWith="StockTicksTB"
+                       RelativePanel.Below="StockTicksTB"
                        Text="Current Visual State" />
 
         </RelativePanel>

@@ -65,5 +65,7 @@ namespace Sample.ViewModels
         public void GotoPrivacy() => NavigationService.Navigate(typeof(Views.SettingsPage), 1);
 
         public void GotoAbout() => NavigationService.Navigate(typeof(Views.SettingsPage), 2);
+
+        public void LoadStockChart() => NavigationService.Navigate(typeof(Metro.Phoebe.Pages.StockDetailPage), Value);
     }
 }
