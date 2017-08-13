@@ -49,7 +49,7 @@
 
                     <!--  enable submit on enter key  -->
                     <Behaviors:KeyBehavior Key="Enter">
-                        <Core:CallMethodAction MethodName="LoadStockChart" TargetObject="{Binding}" />
+                        <Core:CallMethodAction MethodName="GoToStockChartPage" TargetObject="{Binding}" />
                     </Behaviors:KeyBehavior>
 
                     <!--  focus on textbox when page loads  -->
@@ -62,7 +62,7 @@
 
 
             <Button x:Name="submitButton"
-                    Click="{x:Bind ViewModel.GotoDetailsPage}"
+                    Click="{x:Bind ViewModel.GoToStockChartPage}"
                     Content="Submit"
                     RelativePanel.AlignBottomWith="StockTicksTB"
                     RelativePanel.RightOf="StockTicksTB" />

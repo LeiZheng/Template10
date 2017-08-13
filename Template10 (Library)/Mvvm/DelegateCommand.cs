@@ -32,7 +32,9 @@ namespace Template10.Mvvm
             if (!CanExecute(p))
                 return;
             try { _execute(); }
-            catch { Debugger.Break(); }
+            catch (Exception e) {
+                Debugger.Break();
+            }
         }
 
         public void RaiseCanExecuteChanged()

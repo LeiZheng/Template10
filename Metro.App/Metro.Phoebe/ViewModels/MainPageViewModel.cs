@@ -43,7 +43,8 @@ namespace Sample.ViewModels
 
         public override async Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
-            var goingToDetails = args.TargetPageType == typeof(Views.DetailPage);
+            /*
+            var goingToDetails = args.TargetPageType == typeof(Metro.Phoebe.Pages.StockDetailPage);
             if (goingToDetails)
             {
                 var dialog = new ContentDialog
@@ -56,6 +57,7 @@ namespace Sample.ViewModels
                 var result = await dialog.ShowAsyncEx();
                 args.Cancel = result == ContentDialogResult.Secondary;
             }
+            */
         }
 
         public void GotoDetailsPage() => NavigationService.Navigate(typeof(Views.DetailPage), Value);
@@ -66,6 +68,6 @@ namespace Sample.ViewModels
 
         public void GotoAbout() => NavigationService.Navigate(typeof(Views.SettingsPage), 2);
 
-        public void LoadStockChart() => NavigationService.Navigate(typeof(Metro.Phoebe.Pages.StockDetailPage), Value);
+        public void GoToStockChartPage() => NavigationService.Navigate(typeof(Metro.Phoebe.Pages.StockDetailPage), Value);
     }
 }

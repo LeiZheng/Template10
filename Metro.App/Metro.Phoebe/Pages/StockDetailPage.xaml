@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
     xmlns:telerikChartPrimitives="using:Telerik.UI.Xaml.Controls.Chart.Primitives"
-
+    xmlns:localctrl="using:Metro.Phoebe.Controls"
     xmlns:controls="using:Template10.Controls"
     
     mc:Ignorable="d">
@@ -24,36 +24,33 @@
 
         </controls:PageHeader>
 
-        <RelativePanel EntranceNavigationTransitionInfo.IsTargetElement="True"
+        <Grid EntranceNavigationTransitionInfo.IsTargetElement="True"
                        RelativePanel.AlignBottomWithPanel="True"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.Below="pageHeader">
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500*"/>
+                <RowDefinition Height="500*"/>
+            </Grid.RowDefinitions>
 
             <!-- stock chart -->
-            
+            <localctrl:StockChart x:Name="stockChart" Grid.Row="0"
+                                  RelativePanel.AlignTopWithPanel="True"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignRightWithPanel="True"
+
+                                  />
             <!-- Stock Stats Data-->
-            <ItemsControl RelativePanel.AlignBottomWithPanel="True"
+            <ItemsControl RelativePanel.AlignBottomWithPanel="True" Grid.Row="1"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignRightWithPanel="True"
                           RelativePanel.Below="stockChart" 
                           >
             </ItemsControl>
 
-            <Button x:Name="submitButton"
-                    Click="{x:Bind ViewModel.GotoDetailsPage}"
-                    Content="Submit"
-                    RelativePanel.AlignBottomWith="StockTicksTB"
-                    RelativePanel.RightOf="StockTicksTB" />
 
-            <TextBlock x:Name="stateTextBox"
-                       Margin="16,16,0,0"
-                       RelativePanel.AlignLeftWith="StockTicksTB"
-                       RelativePanel.Below="StockTicksTB"
-                       Text="Current Visual State" />
-
-        </RelativePanel>
+        </Grid>
 
     </RelativePanel>
 </Page>

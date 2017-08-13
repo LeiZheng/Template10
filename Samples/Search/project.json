@@ -1,9 +1,9 @@
 ﻿{
   "dependencies": {
     "AdaptiveTileExtensions": "1.0.1",
-    "Microsoft.NETCore.Targets.UniversalWindowsPlatform": "5.0.0",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
-    "Microsoft.Xaml.Behaviors.Uwp.Managed": "1.1.0"
+    "Microsoft.NETCore.Targets.UniversalWindowsPlatform": "5.0.1-beta-23516",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.4.0",
+    "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0"
   },
   "frameworks": {
     "uap10.0": {}
