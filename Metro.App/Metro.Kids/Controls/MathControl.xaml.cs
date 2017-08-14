@@ -30,6 +30,14 @@ namespace Metro.Kids.Controls
         {
             var vm = DataContext as MathPageViewModel;
             vm.HandlePlayOrPauseCommand();
+            if(vm.IsStudying)
+            {
+                Result.Focus(FocusState.Programmatic);
+            }
+            else
+            {
+                Exp.Focus(FocusState.Programmatic);
+            }
 
         }
 

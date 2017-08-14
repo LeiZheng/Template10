@@ -24,51 +24,61 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="0,15, 0, 5" >
-            <StackPanel Orientation="Horizontal" Name="NumberRangePanel" >
-                <TextBlock Text="Number Range:" VerticalAlignment="Center" Margin="15,0,0,0" Name="NumberRangeLabel" />
-                <TextBlock Text="From" VerticalAlignment="Center" Margin="15,0,0,0" Name="NumberRangeFromLabel"  />
-                <telerikInput:RadNumericBox  Margin="15,0,0,0" Width="40" Name="MinNumberText" Height="56" FontSize="32" Value="{Binding MinNumber, Mode=TwoWay}"/>
-                <TextBlock Text="To" VerticalAlignment="Center" Name="NumberRangeToLabel"  Margin="15,0,0,0" />
-                <telerikInput:RadNumericBox Width="40" Name="MaxNumberText"  Margin="15,0,0,0" FontSize="32" Height="56" Value="{Binding MaxNumber, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Name="CountPerColPanel" Margin="0, 15, 0, 0" >
-                <TextBlock Text="Count Per Collection:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="CountPerCollectionLabel"   />
-                <telerikInput:RadNumericBox Width="40" Name="CountPerColText" FontSize="32" Margin="15,0,0,0" Height="56" Value="{Binding CountPerCal, Mode=TwoWay}"/>
-            </StackPanel>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Margin="0,15, 0, 5" >
+                <StackPanel Orientation="Horizontal" Name="NumberRangePanel" >
+                    <TextBlock Text="Number Range:" VerticalAlignment="Center" Margin="15,0,0,0" Name="NumberRangeLabel" />
+                    <TextBlock Text="From" VerticalAlignment="Center" Margin="15,0,0,0" Name="NumberRangeFromLabel"  />
+                    <telerikInput:RadNumericBox  Margin="15,0,0,0" Width="40" Name="MinNumberText" Height="56" FontSize="32" Value="{Binding MinNumber, Mode=TwoWay}"/>
+                    <TextBlock Text="To" VerticalAlignment="Center" Name="NumberRangeToLabel"  Margin="15,0,0,0" />
+                    <telerikInput:RadNumericBox Width="40" Name="MaxNumberText"  Margin="15,0,0,0" FontSize="32" Height="56" Value="{Binding MaxNumber, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Name="CountPerColPanel" Margin="0, 15, 0, 0" >
+                    <TextBlock Text="Count Per Collection:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="CountPerCollectionLabel"   />
+                    <telerikInput:RadNumericBox Width="40" Name="CountPerColText" FontSize="32" Margin="15,0,0,0" Height="56" Value="{Binding CountPerCal, Mode=TwoWay}"/>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Name="NumberCountOfCalcPanel" Margin="0, 15, 0, 0" >
-                <TextBlock Text="How many number used for calc:" Margin="15,0,0,0" VerticalAlignment="Center"  />
-                <ComboBox  FontSize="32" ItemsSource="{Binding NumberCountList}" SelectedItem="{Binding SelectedNumberCount, Mode=TwoWay}"/>
+                <StackPanel Orientation="Horizontal" Name="NumberCountOfCalcPanel" Margin="0, 15, 0, 0" >
+                    <TextBlock Text="How many number used for calc:" Margin="15,0,0,0" VerticalAlignment="Center"  />
+                    <ComboBox  FontSize="32" ItemsSource="{Binding NumberCountList}" SelectedItem="{Binding SelectedNumberCount, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Name="CalculationFactorsPanel" Margin="0, 15, 0, 0" >
+                    <TextBlock Text="Factors:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="FactorsLabel"   />
+                    <AppBarToggleButton IsEnabled="False">
+                        <AppBarToggleButton.Icon>
+                            <FontIcon Glyph="&#xE948;" />
+                        </AppBarToggleButton.Icon>
+                    </AppBarToggleButton>
+                    <AppBarToggleButton IsEnabled="False">
+                        <AppBarToggleButton.Icon>
+                            <FontIcon Glyph="&#xE949;" />
+                        </AppBarToggleButton.Icon>
+                    </AppBarToggleButton>
+                    <AppBarToggleButton IsEnabled="False" IsChecked="True">
+                        <AppBarToggleButton.Icon>
+                            <FontIcon Glyph="&#xE947;" />
+                        </AppBarToggleButton.Icon>
+                    </AppBarToggleButton>
+                    <AppBarToggleButton IsEnabled="False">
+                        <AppBarToggleButton.Icon>
+                            <FontIcon Glyph="&#xE94A;" />
+                        </AppBarToggleButton.Icon>
+                    </AppBarToggleButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Name="TimeElapsedPanel" Margin="0, 15, 0, 0" >
+                    <TextBlock Text="Time Elapsed:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedLabel"   />
+                    <TextBlock Text="{Binding ElapsedTime}" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedValueLabel"   />
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Name="CalculationFactorsPanel" Margin="0, 15, 0, 0" >
-                <TextBlock Text="Factors:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="FactorsLabel"   />
-                <AppBarToggleButton IsEnabled="False">
-                    <AppBarToggleButton.Icon>
-                        <FontIcon Glyph="&#xE948;" />
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-                <AppBarToggleButton IsEnabled="False">
-                    <AppBarToggleButton.Icon>
-                        <FontIcon Glyph="&#xE949;" />
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-                <AppBarToggleButton IsEnabled="False" IsChecked="True">
-                    <AppBarToggleButton.Icon>
-                        <FontIcon Glyph="&#xE947;" />
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-                <AppBarToggleButton IsEnabled="False">
-                    <AppBarToggleButton.Icon>
-                        <FontIcon Glyph="&#xE94A;" />
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Name="TimeElapsedPanel" Margin="0, 15, 0, 0" >
-                <TextBlock Text="Time Elapsed:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedLabel"   />
-                <TextBlock Text="{Binding ElapsedTime}" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedValueLabel"   />
-            </StackPanel>
-        </StackPanel>
+            <RadDataGrid>
+                
+            </RadDataGrid>
+        </Grid>
+         
         <RelativePanel Grid.Row="1" Margin="0, 15, 0, 0" >
             <TextBlock FontSize="100" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"  Name="Exp">
                 <Run Text="{Binding QuestionIndex}" />
@@ -76,7 +86,7 @@
                 <Run Text="{Binding MathOperation}"/>
                 <Run Text=" = ?"/>
             </TextBlock>
-            <telerikInput:RadNumericBox RelativePanel.AlignVerticalCenterWith="Exp" Height="100"  FontSize="70"  RelativePanel.RightOf="Exp" Width="300" Name="Result" Value="{Binding InputAnswer, Mode=TwoWay}" Maximum="9999999">
+            <telerikInput:RadNumericBox RelativePanel.AlignVerticalCenterWith="Exp" Height="100" IsEnabled="{Binding IsStudying}" FontSize="70"  RelativePanel.RightOf="Exp" Width="300" Name="Result" Value="{Binding InputAnswer, Mode=TwoWay}" Maximum="9999999">
                 <Interactivity:Interaction.Behaviors>
                     <!--  enable submit on enter key  -->
                     <behaviors:KeyBehavior Key="Enter">
@@ -89,20 +99,18 @@
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
             </telerikInput:RadNumericBox>
-            <TextBox>
-            </TextBox>
             <Grid Visibility="{Binding IsShowingResult, Converter={StaticResource VisibleWhenTrueConverter}}" RelativePanel.AlignVerticalCenterWith="Result" RelativePanel.RightOf="Result">
                 <FontIcon FontSize="60"  Glyph="&#xE001;" Visibility="{Binding IsCorrectResult, Converter={StaticResource VisibleWhenTrueConverter}}" Foreground="Green"  Height="100"  Width="100" />
                 <FontIcon FontSize="60" Glyph="&#xE106;" Visibility="{Binding IsCorrectResult, Converter={StaticResource VisibleWhenFalseConverter}}" Foreground="Red" Height="100"  Width="100" />
             </Grid>
         </RelativePanel>
-        
+        <Grid Background="Black" Grid.Row="1" Opacity ="0.5" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" />
         <StackPanel Name="CommandBarPanel" Orientation="Horizontal" Grid.Row="2">
             <Grid>
                 <AppBarButton Icon="Play" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" Click="AppBarButton_Click" ></AppBarButton>
                 <AppBarButton Icon="Pause" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenTrueConverter}}" Click="AppBarButton_Click"></AppBarButton>
             </Grid>
-            <Button Content="test" Click="Button_Click" />
+            <Button Content="Submit" Click="Button_Click" />
         </StackPanel>
     </Grid>
 </UserControl>
