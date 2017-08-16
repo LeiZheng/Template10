@@ -8,6 +8,7 @@
     xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:telerikGrid="using:Telerik.UI.Xaml.Controls.Grid"
     xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
     xmlns:vm="using:Metro.Kids.ViewModels"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
@@ -74,9 +75,9 @@
                     <TextBlock Text="{Binding ElapsedTime}" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedValueLabel"   />
                 </StackPanel>
             </StackPanel>
-            <RadDataGrid>
+            <telerikGrid:RadDataGrid ItemsSource="{Binding SingleHistories}">
                 
-            </RadDataGrid>
+            </telerikGrid:RadDataGrid>
         </Grid>
          
         <RelativePanel Grid.Row="1" Margin="0, 15, 0, 0" >

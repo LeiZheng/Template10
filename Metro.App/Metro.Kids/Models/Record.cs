@@ -11,7 +11,6 @@ namespace Metro.Kids.Models
         public long RecordId;
         public DateTime StartTime;
         public DateTime EndTime;
-        public int CorrentCount;
         public int ErrorCount;
     }
     public class SignleRecord : Record

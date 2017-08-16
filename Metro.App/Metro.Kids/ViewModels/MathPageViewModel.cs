@@ -55,14 +55,22 @@ namespace Metro.Kids.ViewModels
             {
                 NumberCountList.Add(i);
             }            
-            MathOperation = GenerteMathOperation();
-            QuestionIndex = 1;
+            SingleHistories = new ObservableCollection<SignleRecord>();
         }
 
         public void ShowNextMathOperation()
         {
             InputAnswer = null;
             QuestionIndex++;
+            MathOperation = GenerteMathOperation();
+            QuestionIndex = 1;
+            _currentSingleRecord = new SignleRecord
+            {
+                RecordId = QuestionIndex,
+                StartTime = DateTime.Now,
+                ErrorCount = 0,
+            };
+
             MathOperation = GenerteMathOperation();
 
         }
@@ -78,6 +86,7 @@ namespace Metro.Kids.ViewModels
                 CountNumber = SelectedNumberCount,
                 Factors = factors,
             });
+
         }
 
         private int _MinNumber;
@@ -93,6 +102,9 @@ namespace Metro.Kids.ViewModels
         private bool _IsCorrectResult;
         private double? _InputAnswer;
         private int _QuestionIndex;
+
+        private ObservableCollection<SignleRecord> SingleHistories { get; set; }
+
         public string MathOperation
         {
             get
@@ -136,6 +148,7 @@ namespace Metro.Kids.ViewModels
         private DispatcherTimer timer;
         private TimeSpan _AccumultedTime;
         private bool _IsNewPractice = true  ;
+        private SignleRecord _currentSingleRecord;
 
         public void HandlePlayOrPauseCommand()
         {
@@ -165,6 +178,7 @@ namespace Metro.Kids.ViewModels
             }
             else
             {
+                _currentSingleRecord.ErrorCount++;
                 IsShowingResult = true;
             }      
         }
