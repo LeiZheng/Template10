@@ -32,8 +32,8 @@ namespace Metro.Kids
                 }
                 else
                 {
-                    formular += " " + factorStringMap[seed.Factors[(int)Math.Floor(randomD - 0.0001)]];
-                    formular += " " + (int)num;
+                    formular += " " + factorStringMap[seed.Factors[(int)Math.Round(randomD * (seed.Factors.Count - 1))]];
+                    formular += " " + Math.Round(num);
                 }
             }
             var ret = MathEvaluator.Evaluate(formular);

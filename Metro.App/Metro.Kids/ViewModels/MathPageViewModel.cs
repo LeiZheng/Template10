@@ -59,7 +59,7 @@ namespace Metro.Kids.ViewModels
             IsMinusEnabled = false;
             IsMultEnabled = true;
             NumberCountList = new ObservableCollection<int>();
-            for (int i = 2; i < 5; i++)
+            for (int i = 2; i < 3; i++)
             {
                 NumberCountList.Add(i);
             }            
@@ -93,10 +93,7 @@ namespace Metro.Kids.ViewModels
 
             //reset the index;
             QuestionIndex = 0;
-
             ShowNextMathOperation();
-           
-            
         }
 
         private void AddSessionRecord(SessionRecord sessionRec)
@@ -115,9 +112,6 @@ namespace Metro.Kids.ViewModels
                 StartTime = DateTime.Now,
                 ErrorCount = 0,
             };
-
-            
-
         }
 
         private string GenerteMathOperation()
@@ -266,12 +260,20 @@ namespace Metro.Kids.ViewModels
 
         public void ValidateAnswer()
         {            
-            IsCorrectResult = InputAnswer == MathEvaluator.Evaluate(MathOperation);
+            IsCorrectResult = Math.Round(InputAnswer.Value, 2) == Math.Round(MathEvaluator.Evaluate(MathOperation), 2);
             if(IsCorrectResult)
             {
                 _currentSingleRecord.EndTime = DateTime.Now;
                 SingleHistories.Add(_currentSingleRecord);
-                ShowNextMathOperation();
+                if(QuestionIndex >= CountPerCal)
+                {
+                    EndSession();
+                }
+                else
+                {
+                    ShowNextMathOperation();
+                }
+                
             }
             else
             {
