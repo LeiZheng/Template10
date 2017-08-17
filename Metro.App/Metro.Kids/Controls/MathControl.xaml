@@ -49,22 +49,22 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Name="CalculationFactorsPanel" Margin="0, 15, 0, 0" >
                     <TextBlock Text="Factors:" Margin="15,0,0,0" VerticalAlignment="Center"  Name="FactorsLabel"   />
-                    <AppBarToggleButton IsEnabled="False">
+                    <AppBarToggleButton IsEnabled="{Binding IsPlusEnabled}" IsChecked="{Binding IsPlusChecked, Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
                             <FontIcon Glyph="&#xE948;" />
                         </AppBarToggleButton.Icon>
                     </AppBarToggleButton>
-                    <AppBarToggleButton IsEnabled="False">
+                    <AppBarToggleButton IsEnabled="{Binding IsMinusEnabled}" IsChecked="{Binding IsMinusChecked, Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
                             <FontIcon Glyph="&#xE949;" />
                         </AppBarToggleButton.Icon>
                     </AppBarToggleButton>
-                    <AppBarToggleButton IsEnabled="False" IsChecked="True">
+                    <AppBarToggleButton IsEnabled="{Binding IsMultEnabled}" IsChecked="{Binding IsMultChecked, Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
                             <FontIcon Glyph="&#xE947;" />
                         </AppBarToggleButton.Icon>
                     </AppBarToggleButton>
-                    <AppBarToggleButton IsEnabled="False">
+                    <AppBarToggleButton IsEnabled="{Binding IsDivEnabled}" IsChecked="{Binding IsDivChecked, Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
                             <FontIcon Glyph="&#xE94A;" />
                         </AppBarToggleButton.Icon>
@@ -75,13 +75,13 @@
                     <TextBlock Text="{Binding ElapsedTime}" Margin="15,0,0,0" VerticalAlignment="Center"  Name="TimeElapsedValueLabel"   />
                 </StackPanel>
             </StackPanel>
-            <telerikGrid:RadDataGrid ItemsSource="{Binding SingleHistories}">
+            <telerikGrid:RadDataGrid UserGroupMode="Disabled" ItemsSource="{Binding SingleHistories}" Grid.Column="1" AutoGenerateColumns="True">
                 
             </telerikGrid:RadDataGrid>
         </Grid>
-         
-        <RelativePanel Grid.Row="1" Margin="0, 15, 0, 0" >
-            <TextBlock FontSize="100" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"  Name="Exp">
+
+        <RelativePanel Grid.Row="1" Margin="0, 15, 0, 0" Visibility="{Binding IsSession, Converter={StaticResource VisibleWhenTrueConverter}}">
+            <TextBlock FontSize="100" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"  Name="Exp">
                 <Run Text="{Binding QuestionIndex}" />
                 <Run Text=": " />
                 <Run Text="{Binding MathOperation}"/>
@@ -107,11 +107,11 @@
         </RelativePanel>
         <Grid Background="Black" Grid.Row="1" Opacity ="0.5" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" />
         <StackPanel Name="CommandBarPanel" Orientation="Horizontal" Grid.Row="2">
-            <Grid>
+            <Button Content="{Binding IsSession, Converter={StaticResource SessionButtonNameConverter}}" Click="Button_Click" />
+            <Grid Visibility="{Binding IsSession, Converter={StaticResource VisibleWhenTrueConverter}}">
                 <AppBarButton Icon="Play" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" Click="AppBarButton_Click" ></AppBarButton>
                 <AppBarButton Icon="Pause" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenTrueConverter}}" Click="AppBarButton_Click"></AppBarButton>
             </Grid>
-            <Button Content="Submit" Click="Button_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

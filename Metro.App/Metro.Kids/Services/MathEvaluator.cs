@@ -13,11 +13,13 @@ namespace Metro.Kids.Services
             String expr = "(" + input + ")";
             Stack<String> ops = new Stack<String>();
             Stack<Double> vals = new Stack<Double>();
-
+            var isLastDouble = false;
             for (int i = 0; i < expr.Length; i++)
             {
+                
                 String s = expr.Substring(i, 1);
                 double value;
+                var isDouble = false;
                 if (s.Equals("(")) { }
                 else if (s.Equals("+")) ops.Push(s);
                 else if (s.Equals("-")) ops.Push(s);
@@ -42,9 +44,16 @@ namespace Metro.Kids.Services
                     }
                 }
                 else if(Double.TryParse(s, out value))
-                {
-                    vals.Push(Double.Parse(s));
+                { 
+                    if(isLastDouble)
+                    {
+                        value = vals.Pop() * 10 + value;
+                    }
+                    vals.Push(value);
+                    isDouble = true;
                 }
+
+                isLastDouble = isDouble;
             }
             return vals.Pop();
         }

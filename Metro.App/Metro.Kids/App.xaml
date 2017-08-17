@@ -29,5 +29,16 @@
                 <Visibility>Visible</Visibility>
             </converters:ValueWhenConverter.Otherwise>
         </converters:ValueWhenConverter>
+        <converters:ValueWhenConverter x:Key="SessionButtonNameConverter">
+            <converters:ValueWhenConverter.When>
+                <x:Boolean>True</x:Boolean>
+            </converters:ValueWhenConverter.When>
+            <converters:ValueWhenConverter.Value>
+                <x:String>End Session</x:String>
+            </converters:ValueWhenConverter.Value>
+            <converters:ValueWhenConverter.Otherwise>
+                <x:String>Start Session</x:String>
+            </converters:ValueWhenConverter.Otherwise>
+        </converters:ValueWhenConverter>
     </Application.Resources>
 </common:BootStrapper>

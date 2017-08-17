@@ -8,18 +8,18 @@ namespace Metro.Kids.Models
 {
     public class Record
     {
-        public long RecordId;
-        public DateTime StartTime;
-        public DateTime EndTime;
-        public int ErrorCount;
+        public long RecordId { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int ErrorCount { get; set; }
     }
     public class SignleRecord : Record
     {
 
     }
 
-    public class CollectionRecord : Record
+    public class SessionRecord : Record
     {
-        public int CollectionCount;
+        public int CollectionCount { get; set; }
     }
 }

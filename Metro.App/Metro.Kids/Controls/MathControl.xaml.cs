@@ -44,7 +44,11 @@ namespace Metro.Kids.Controls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MathPageViewModel;
-            vm.ShowNextMathOperation();
+            if (vm.IsSession)
+                vm.EndSession();
+            else
+                vm.StartNewSession();
+            
         }
     }
 }

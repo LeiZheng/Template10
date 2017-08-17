@@ -49,13 +49,59 @@ namespace Metro.Kids.ViewModels
             MinNumber = 1;
             MaxNumber = 9;
             CountPerCal = 25;
-            SelectedNumberCount = 2;
+            SelectedNumberCount = 3;
+            IsPlusChecked = true;
+            IsMultChecked = true;
+            IsDivChecked = false;
+            IsMinusChecked = false;
+            IsDivEnabled = false;
+            IsPlusEnabled = true;
+            IsMinusEnabled = false;
+            IsMultEnabled = true;
             NumberCountList = new ObservableCollection<int>();
-            for (int i = 2; i < 3; i++)
+            for (int i = 2; i < 5; i++)
             {
                 NumberCountList.Add(i);
             }            
             SingleHistories = new ObservableCollection<SignleRecord>();
+        }
+
+        internal void EndSession()
+        {
+            IsSession = false;
+            var sessionRec = new SessionRecord();
+            if (SingleHistories.Count > 10)
+            {
+                sessionRec.StartTime = SingleHistories.First().StartTime;
+                sessionRec.EndTime = SingleHistories.Last().EndTime;
+                sessionRec.CollectionCount = SingleHistories.Count();
+                sessionRec.ErrorCount = SingleHistories.Sum(x => x.ErrorCount);
+                SingleHistories.Clear();
+                AddSessionRecord(sessionRec);
+            }
+            if(IsStudying == true)
+            PlayOrPauseStudyCommand.Execute(null);
+        }
+
+        public void StartNewSession()
+        {
+            IsSession = true;
+            if(IsStudying == false)
+            PlayOrPauseStudyCommand.Execute(null);
+            //clear the data grid
+            SingleHistories.Clear();
+
+            //reset the index;
+            QuestionIndex = 0;
+
+            ShowNextMathOperation();
+           
+            
+        }
+
+        private void AddSessionRecord(SessionRecord sessionRec)
+        {
+           // throw new NotImplementedException();
         }
 
         public void ShowNextMathOperation()
@@ -63,7 +109,6 @@ namespace Metro.Kids.ViewModels
             InputAnswer = null;
             QuestionIndex++;
             MathOperation = GenerteMathOperation();
-            QuestionIndex = 1;
             _currentSingleRecord = new SignleRecord
             {
                 RecordId = QuestionIndex,
@@ -71,14 +116,17 @@ namespace Metro.Kids.ViewModels
                 ErrorCount = 0,
             };
 
-            MathOperation = GenerteMathOperation();
+            
 
         }
 
         private string GenerteMathOperation()
         {
             var factors = new List<NumberFactors>();
+            if(IsMultChecked)
             factors.Add(NumberFactors.MULITPLE);
+            if(IsPlusChecked)
+            factors.Add(NumberFactors.PLUS);
             return _mathGenerator.GenerateMathOperate(new MathSeed
             {
                 MinNumber = MinNumber,
@@ -103,7 +151,54 @@ namespace Metro.Kids.ViewModels
         private double? _InputAnswer;
         private int _QuestionIndex;
 
-        private ObservableCollection<SignleRecord> SingleHistories { get; set; }
+        private bool _IsSession;
+
+
+        private bool _IsPlusChecked;
+        private bool _IsPlusEnabled;
+
+        public bool IsPlusChecked { get { return _IsPlusChecked; }  set { Set(() => IsPlusChecked, ref _IsPlusChecked, value); } }
+        public bool IsPlusEnabled { get { return _IsPlusEnabled; } set { Set(() => IsPlusEnabled, ref _IsPlusEnabled, value); } }
+
+
+        private bool _IsMinusChecked;
+        private bool _IsMinusEnabled;
+        public bool IsMinusChecked { get { return _IsMinusChecked; } set { Set(() => IsMinusChecked, ref _IsMinusChecked, value); } }
+        public bool IsMinusEnabled { get { return _IsMinusEnabled; } set { Set(() => IsMinusEnabled, ref _IsMinusEnabled, value); } }
+
+
+        private bool _IsMultChecked;
+        private bool _IsMultEnabled;
+        public bool IsMultChecked { get { return _IsMultChecked; } set { Set(() => IsMultChecked, ref _IsMultChecked, value); } }
+        public bool IsMultEnabled { get { return _IsMultEnabled; } set { Set(() => IsMultEnabled, ref _IsMultEnabled, value); } }
+
+
+        private bool _IsDivChecked;
+        private bool _IsDivEnabled;
+        public bool IsDivChecked { get { return _IsDivChecked; } set { Set(() => IsDivChecked, ref _IsDivChecked, value); } }
+        public bool IsDivEnabled { get { return _IsDivEnabled; } set { Set(() => IsDivEnabled, ref _IsDivEnabled, value); } }
+
+
+
+        public bool IsSession
+        {
+            get { return _IsSession; }
+            set { Set(()=>IsSession, ref _IsSession, value); }
+        }
+
+        private ObservableCollection<SignleRecord> _SingleHistories;
+
+        public ObservableCollection<SignleRecord> SingleHistories
+        {
+            get
+            {
+                return _SingleHistories;
+            }
+            set
+            {
+                Set(() => SingleHistories, ref _SingleHistories, value);
+            }
+        }
 
         public string MathOperation
         {
@@ -174,6 +269,8 @@ namespace Metro.Kids.ViewModels
             IsCorrectResult = InputAnswer == MathEvaluator.Evaluate(MathOperation);
             if(IsCorrectResult)
             {
+                _currentSingleRecord.EndTime = DateTime.Now;
+                SingleHistories.Add(_currentSingleRecord);
                 ShowNextMathOperation();
             }
             else
