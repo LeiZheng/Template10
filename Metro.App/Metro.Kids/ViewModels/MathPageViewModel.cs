@@ -56,7 +56,7 @@ namespace Metro.Kids.ViewModels
             IsMinusChecked = false;
             IsDivEnabled = false;
             IsPlusEnabled = true;
-            IsMinusEnabled = false;
+            IsMinusEnabled = true;
             IsMultEnabled = true;
             NumberCountList = new ObservableCollection<int>();
             for (int i = 2; i < 3; i++)
@@ -121,6 +121,14 @@ namespace Metro.Kids.ViewModels
             factors.Add(NumberFactors.MULITPLE);
             if(IsPlusChecked)
             factors.Add(NumberFactors.PLUS);
+            if(IsMinusChecked)
+            {
+                factors.Add(NumberFactors.MINUS);
+            }
+            if(IsDivChecked)
+            {
+                factors.Add(NumberFactors.DIV);
+            }
             return _mathGenerator.GenerateMathOperate(new MathSeed
             {
                 MinNumber = MinNumber,
@@ -260,7 +268,7 @@ namespace Metro.Kids.ViewModels
 
         public void ValidateAnswer()
         {            
-            IsCorrectResult = Math.Round(InputAnswer.Value, 2) == Math.Round(MathEvaluator.Evaluate(MathOperation), 2);
+            IsCorrectResult = Math.Round(InputAnswer.Value, 2) == Math.Round(MathEvaluator.EvaluteByNCalc(MathOperation), 2);
             if(IsCorrectResult)
             {
                 _currentSingleRecord.EndTime = DateTime.Now;

@@ -87,7 +87,7 @@
                 <Run Text="{Binding MathOperation}"/>
                 <Run Text=" = ?"/>
             </TextBlock>
-            <telerikInput:RadNumericBox RelativePanel.AlignVerticalCenterWith="Exp" Height="100" IsEnabled="{Binding IsStudying}" FontSize="70"  RelativePanel.RightOf="Exp" Width="300" Name="Result" Value="{Binding InputAnswer, Mode=TwoWay}" Maximum="9999999">
+            <telerikInput:RadNumericBox RelativePanel.AlignVerticalCenterWith="Exp" Height="100" IsEnabled="{Binding IsStudying}" FontSize="70"  RelativePanel.RightOf="Exp" Width="300" Name="Result" Value="{Binding InputAnswer, Mode=TwoWay}" Minimum="-9999999" Maximum="9999999">
                 <Interactivity:Interaction.Behaviors>
                     <!--  enable submit on enter key  -->
                     <behaviors:KeyBehavior Key="Enter">
