@@ -36,7 +36,6 @@ namespace Metro.Kids
                     formular += " " + Math.Round(num);
                 }
             }
-            var ret = MathEvaluator.Evaluate(formular);
             return formular;
         }
         public MathOperationGenerator()

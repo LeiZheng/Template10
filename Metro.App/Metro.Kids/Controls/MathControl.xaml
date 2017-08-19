@@ -25,6 +25,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
+        
         <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -112,6 +113,10 @@
                 <AppBarButton Icon="Play" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" Click="AppBarButton_Click" ></AppBarButton>
                 <AppBarButton Icon="Pause" Height="50" Width="50" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenTrueConverter}}" Click="AppBarButton_Click"></AppBarButton>
             </Grid>
+            <AppBarToggleButton Icon="Edit" IsChecked="{Binding IsShowingDraftBoard, Mode=TwoWay}" Unchecked="AppBarToggleButton_Unchecked" />
         </StackPanel>
+        <Grid  Grid.Row="0" Grid.RowSpan="2" Background="Black"  Opacity="0.5" Visibility="{Binding IsShowingDraftBoard, Converter={StaticResource VisibleWhenTrueConverter}}">
+            <InkCanvas x:Name="inkCanvas" Margin="0, 0, 0, 0"/>
+        </Grid>
     </Grid>
 </UserControl>

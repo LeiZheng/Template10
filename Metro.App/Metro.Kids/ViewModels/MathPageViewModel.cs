@@ -59,7 +59,7 @@ namespace Metro.Kids.ViewModels
             IsMinusEnabled = true;
             IsMultEnabled = true;
             NumberCountList = new ObservableCollection<int>();
-            for (int i = 2; i < 3; i++)
+            for (int i = 2; i < 5; i++)
             {
                 NumberCountList.Add(i);
             }            
@@ -180,6 +180,8 @@ namespace Metro.Kids.ViewModels
         public bool IsDivChecked { get { return _IsDivChecked; } set { Set(() => IsDivChecked, ref _IsDivChecked, value); } }
         public bool IsDivEnabled { get { return _IsDivEnabled; } set { Set(() => IsDivEnabled, ref _IsDivEnabled, value); } }
 
+        private bool _IsShowingDraftBoard;
+        public bool IsShowingDraftBoard { get { return _IsShowingDraftBoard; } set { Set(() => IsShowingDraftBoard, ref _IsShowingDraftBoard, value); } }
 
 
         public bool IsSession
@@ -268,7 +270,15 @@ namespace Metro.Kids.ViewModels
 
         public void ValidateAnswer()
         {            
-            IsCorrectResult = Math.Round(InputAnswer.Value, 2) == Math.Round(MathEvaluator.EvaluteByNCalc(MathOperation), 2);
+            try
+            {
+                IsCorrectResult = Math.Round(InputAnswer.Value, 2) == Math.Round(MathEvaluator.EvaluteByNCalc(MathOperation), 2);
+            }
+            catch(Exception e)
+            {
+                IsCorrectResult = false;
+            }
+            
             if(IsCorrectResult)
             {
                 _currentSingleRecord.EndTime = DateTime.Now;
