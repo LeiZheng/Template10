@@ -16,9 +16,7 @@
     
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <UserControl.DataContext>
-        <vm:MathPageViewModel x:Name="ViewModel"/>
-    </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="400" />

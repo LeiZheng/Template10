@@ -16,6 +16,10 @@ namespace Metro.Kids.ViewModels
     {
         public MathConfig Config { get; set; }
         private MathOperationGenerator _mathGenerator = new MathOperationGenerator();
+        private StorageServices _storeSevices = new StorageServices();
+        private ObservableCollection<SessionRecord> _sessionRecords;
+
+        public ObservableCollection<SessionRecord> SessionRecords { get { return _sessionRecords; } set { Set(() => SessionRecords, ref _sessionRecords, value); }}
         public MathPageViewModel()
         {
             //Config = new MathConfig();
@@ -59,6 +63,7 @@ namespace Metro.Kids.ViewModels
             IsMinusEnabled = true;
             IsMultEnabled = true;
             NumberCountList = new ObservableCollection<int>();
+            SessionRecords = _storeSevices.GetAllSessionRecords();
             for (int i = 2; i < 5; i++)
             {
                 NumberCountList.Add(i);
@@ -98,7 +103,8 @@ namespace Metro.Kids.ViewModels
 
         private void AddSessionRecord(SessionRecord sessionRec)
         {
-           // throw new NotImplementedException();
+            SessionRecords.Add(sessionRec);
+            _storeSevices.Insert(sessionRec);
         }
 
         public void ShowNextMathOperation()
