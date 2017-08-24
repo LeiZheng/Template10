@@ -50,7 +50,7 @@ namespace Metro.Kids.ViewModels
 
         private void InitializeData()
         {
-            MinNumber = 1;
+            MinNumber = 2;
             MaxNumber = 9;
             CountPerCal = 25;
             SelectedNumberCount = 3;
@@ -58,7 +58,7 @@ namespace Metro.Kids.ViewModels
             IsMultChecked = true;
             IsDivChecked = false;
             IsMinusChecked = false;
-            IsDivEnabled = false;
+            IsDivEnabled = true;
             IsPlusEnabled = true;
             IsMinusEnabled = true;
             IsMultEnabled = true;
@@ -75,12 +75,13 @@ namespace Metro.Kids.ViewModels
         {
             IsSession = false;
             var sessionRec = new SessionRecord();
-            if (SingleHistories.Count > 10)
+            if (SingleHistories.Count > 10 || SingleHistories.Count >= CountPerCal)
             {
                 sessionRec.StartTime = SingleHistories.First().StartTime;
-                sessionRec.EndTime = SingleHistories.Last().EndTime;
+                sessionRec.Duration = new TimeSpan(SingleHistories.Sum(x => x.Duration.Ticks));
                 sessionRec.CollectionCount = SingleHistories.Count();
                 sessionRec.ErrorCount = SingleHistories.Sum(x => x.ErrorCount);
+                sessionRec.CorrectRate = string.Format("{0:00} %", sessionRec.CollectionCount * 100 / (sessionRec.CollectionCount + sessionRec.ErrorCount));
                 SingleHistories.Clear();
                 AddSessionRecord(sessionRec);
             }
@@ -103,7 +104,7 @@ namespace Metro.Kids.ViewModels
 
         private void AddSessionRecord(SessionRecord sessionRec)
         {
-            SessionRecords.Add(sessionRec);
+            SessionRecords.Insert(0, sessionRec);
             _storeSevices.Insert(sessionRec);
         }
 
@@ -286,8 +287,8 @@ namespace Metro.Kids.ViewModels
             }
             
             if(IsCorrectResult)
-            {
-                _currentSingleRecord.EndTime = DateTime.Now;
+            {             
+                _currentSingleRecord.Duration = _AccumultedTime;
                 SingleHistories.Add(_currentSingleRecord);
                 if(QuestionIndex >= CountPerCal)
                 {

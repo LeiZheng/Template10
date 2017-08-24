@@ -7,7 +7,7 @@ using Metro.Kids.Models;
 using LiteDB;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
-using Windows.Storage;
+using Windows.Storage; 
 
 namespace Metro.Kids.Services
 {
@@ -15,7 +15,7 @@ namespace Metro.Kids.Services
     {
         public void Insert(SessionRecord sessionRec)
         {
-            using (var db = new LiteDatabase(@"MyData.db"))
+            using (var db = CreateConnection())
             {
                 // Get customer collection
                 var customers = db.GetCollection<SessionRecord>("sessions");
@@ -25,12 +25,16 @@ namespace Metro.Kids.Services
 
         public ObservableCollection<SessionRecord> GetAllSessionRecords()
         {
-            using (var db = new LiteDatabase(ApplicationData.Current.LocalFolder.Path +   "\\MyData.db"))
+            using (var db = CreateConnection())
             {
                 // Get customer collection
                 var customers = db.GetCollection<SessionRecord>("sessions");
-                return new ObservableCollection<SessionRecord>(customers.FindAll());
+                return new ObservableCollection<SessionRecord>(customers.FindAll().Reverse());
             }
+        }
+        private LiteDatabase CreateConnection()
+        {
+            return new LiteDatabase(ApplicationData.Current.LocalFolder.Path + "\\MyData.db");
         }
     }
 }

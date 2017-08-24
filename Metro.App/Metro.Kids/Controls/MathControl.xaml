@@ -103,6 +103,7 @@
                 <FontIcon FontSize="60"  Glyph="&#xE001;" Visibility="{Binding IsCorrectResult, Converter={StaticResource VisibleWhenTrueConverter}}" Foreground="Green"  Height="100"  Width="100" />
                 <FontIcon FontSize="60" Glyph="&#xE106;" Visibility="{Binding IsCorrectResult, Converter={StaticResource VisibleWhenFalseConverter}}" Foreground="Red" Height="100"  Width="100" />
             </Grid>
+            <TextBlock Text="Keep two decimal places" />
         </RelativePanel>
         <Grid Background="Black" Grid.Row="1" Opacity ="0.5" Visibility="{Binding IsStudying, Converter={StaticResource VisibleWhenFalseConverter}}" />
         <StackPanel Name="CommandBarPanel" Orientation="Horizontal" Grid.Row="2">

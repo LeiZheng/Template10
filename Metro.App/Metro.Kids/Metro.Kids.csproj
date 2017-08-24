@@ -102,6 +102,9 @@
     <Compile Include="Controls\MathControl.xaml.cs">
       <DependentUpon>MathControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SessonHistory.xaml.cs">
+      <DependentUpon>SessonHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\MathControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SessonHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
