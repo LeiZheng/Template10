@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Metro.Phoebe.Shares.Model;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
 
-namespace Sample.ViewModels
+namespace Metro.Phoebe.ViewModels
 {
-    public class DetailPageViewModel : ViewModelBase
+    public class StockDetailViewModel : ViewModelBase
     {
-        public DetailPageViewModel()
+        public StockDetailViewModel()
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
@@ -16,21 +18,17 @@ namespace Sample.ViewModels
             }
         }
 
-        private string _Value = "Default";
-        public string Value { get { return _Value; } set { Set(ref _Value, value); } }
-
+        private ObservableCollection<StockBarData> _stockHistories;
+        public ObservableCollection<StockBarData> StockHistories { get => _stockHistories; set => Set(ref _stockHistories, value); }
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
-            Value = (suspensionState.ContainsKey(nameof(Value))) ? suspensionState[nameof(Value)]?.ToString() : parameter?.ToString();
+
             await Task.CompletedTask;
         }
 
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> suspensionState, bool suspending)
         {
-            if (suspending)
-            {
-                suspensionState[nameof(Value)] = Value;
-            }
+
             await Task.CompletedTask;
         }
 

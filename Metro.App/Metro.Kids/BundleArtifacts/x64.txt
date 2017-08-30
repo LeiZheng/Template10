@@ -1,2 +1,2 @@
-MainPackage=H:\source_code\github\t10\Metro.App\Metro.Kids\bin\x64\Release\Metro.Kids_1.1.8.0_x64.appx
-SymbolPackage=H:\source_code\github\t10\Metro.App\Metro.Kids\AppPackages\Metro.Kids_1.1.8.0_Test\Metro.Kids_1.1.8.0_x64.appxsym
+MainPackage=H:\source_code\github\t10\Metro.App\Metro.Kids\bin\x64\Release\Metro.Kids_1.1.10.0_x64.appx
+SymbolPackage=H:\source_code\github\t10\Metro.App\Metro.Kids\AppPackages\Metro.Kids_1.1.10.0_Test\Metro.Kids_1.1.10.0_x64.appxsym

@@ -6,11 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
     xmlns:telerikChartPrimitives="using:Telerik.UI.Xaml.Controls.Chart.Primitives"
+    xmlns:telerikGrid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:vm="using:Metro.Phoebe.ViewModels"
     xmlns:localctrl="using:Metro.Phoebe.Controls"
-    xmlns:controls="using:Template10.Controls"
-    
+    xmlns:controls="using:Template10.Controls"    
     mc:Ignorable="d">
-
+    <Page.DataContext>
+        <vm:StockDetailViewModel x:Name="StockDetailVM"/>
+    </Page.DataContext>
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:PageHeader x:Name="pageHeader"
                              RelativePanel.AlignLeftWithPanel="True"
@@ -32,6 +35,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="500*"/>
                 <RowDefinition Height="500*"/>
+                <RowDefinition Height="500*"/>
             </Grid.RowDefinitions>
 
             <!-- stock chart -->
@@ -48,9 +52,21 @@
                           RelativePanel.Below="stockChart" 
                           >
             </ItemsControl>
-
+            <telerikGrid:RadDataGrid UserGroupMode="Disabled" ItemsSource="{Binding StockHistories}" AutoGenerateColumns="False"  Margin="4" Grid.Row="2">
+                <telerikGrid:RadDataGrid.Columns>
+                    <telerikGrid:DataGridTimeColumn PropertyName="StartTime"
+                                Header="Start Time" />
+                    <!-- ... -->
+                    <telerikGrid:DataGridTimeColumn PropertyName="Duration"
+                                Header="Duration"
+                                />
+                    <telerikGrid:DataGridTextColumn PropertyName="CollectionCount" Header="Collection Count" />
+                    <telerikGrid:DataGridTextColumn PropertyName="CorrectRate" Header="Correct Rate" />
+                </telerikGrid:RadDataGrid.Columns>
+            </telerikGrid:RadDataGrid>
 
         </Grid>
 
+        
     </RelativePanel>
 </Page>
