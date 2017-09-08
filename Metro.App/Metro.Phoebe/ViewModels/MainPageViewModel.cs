@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Template10.Mvvm;
@@ -19,8 +20,10 @@ namespace Sample.ViewModels
             }
         }
 
-        string _Value = "Gas";
+        private ObservableCollection<string> _StockSymbalLists;
+        public ObservableCollection<string> StockSymbalLists { get => _StockSymbalLists; set => Set(() => StockSymbalLists, ref _StockSymbalLists, value); }
 
+        string _Value = "Gas";
         public string Value { get { return _Value; } set { Set(ref _Value, value); } }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
@@ -29,6 +32,9 @@ namespace Sample.ViewModels
             {
                 Value = suspensionState[nameof(Value)]?.ToString();
             }
+            StockSymbalLists = new ObservableCollection<string>();
+            StockSymbalLists.Add("AAPL");
+            StockSymbalLists.Add("BABA");
             await Task.CompletedTask;
         }
 

@@ -37,7 +37,7 @@ namespace Metro.Phoebe.Shares.Services
                             , ParseDouble(vals[2])
                             , ParseDouble(vals[3])
                             , ParseDouble(vals[4])
-                            , ParseLong(vals[5])
+                            , ParseDouble(vals[5])
                             );
                     stockBars.Add(barData);
                 }

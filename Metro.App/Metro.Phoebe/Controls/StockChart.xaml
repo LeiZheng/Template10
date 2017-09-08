@@ -13,13 +13,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <chart:RadCartesianChart x:Name="OhlcChart" PaletteName="DefaultLightSelected" Grid.Row="1">
+        <chart:RadCartesianChart x:Name="OhlcChart" PaletteName="DefaultLightSelected" Grid.Row="0" DataContext="{Binding StockHistories}" Height="600" >
             <chart:RadCartesianChart.Indicators>
-                <chart:BollingerBandsIndicator ItemsSource="{Binding}" Period="2" StandardDeviations="2" Stroke="Green" StrokeThickness="2" LowerBandStroke="Red">
+                <chart:BollingerBandsIndicator ItemsSource="{Binding}" Period="1" StandardDeviations="2" Stroke="Green" StrokeThickness="1" LowerBandStroke="Red">
                     <chart:BollingerBandsIndicator.ValueBinding>
                         <chart:PropertyNameDataPointBinding PropertyName="Close"/>
                     </chart:BollingerBandsIndicator.ValueBinding>
@@ -33,13 +32,41 @@
                 <chart:LinearAxis/>
             </chart:RadCartesianChart.VerticalAxis>
             <chart:RadCartesianChart.HorizontalAxis>
-                <chart:DateTimeCategoricalAxis LabelFormat="{}{0,0:dd/MM}"/>
+                <chart:DateTimeCategoricalAxis LabelFormat="{}{0,0:dd/MM}" LabelFitMode="MultiLine" LabelInterval="10"/>
             </chart:RadCartesianChart.HorizontalAxis>
             <chart:RadCartesianChart.Grid>
                 <chart:CartesianChartGrid MajorLinesVisibility="XY"/>
             </chart:RadCartesianChart.Grid>
 
             <chart:RadCartesianChart.Series>
+                <chart:BarSeries ItemsSource="{Binding}" Opacity="0.5">
+                    <chart:BarSeries.CategoryBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Date"/>
+                    </chart:BarSeries.CategoryBinding>
+                    <chart:BarSeries.ValueBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Volume"/>
+                    </chart:BarSeries.ValueBinding>
+                    <chart:BarSeries.VerticalAxis>
+                        <chart:LinearAxis HorizontalLocation="Right">
+                            <chart:LinearAxis.LineStyle>
+                                <Style TargetType="Line">
+                                    <Setter Property="Stroke" Value="#FFFFC500"></Setter>
+                                </Style>
+                            </chart:LinearAxis.LineStyle>
+                            <chart:LinearAxis.LabelStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#FFFFC500"></Setter>
+                                    <Setter Property="Margin" Value="5 0"/>
+                                </Style>
+                            </chart:LinearAxis.LabelStyle>
+                            <chart:LinearAxis.MajorTickStyle>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Stroke" Value="#FFFFC500"></Setter>
+                                </Style>
+                            </chart:LinearAxis.MajorTickStyle>
+                        </chart:LinearAxis>
+                    </chart:BarSeries.VerticalAxis>
+                </chart:BarSeries>
                 <chart:OhlcSeries ItemsSource="{Binding}">
                     <chart:OhlcSeries.CategoryBinding>
                         <chart:PropertyNameDataPointBinding PropertyName="Date"/>
@@ -60,28 +87,21 @@
             </chart:RadCartesianChart.Series>
         </chart:RadCartesianChart>
 
-        <chart:RadCartesianChart Grid.Row="2" x:Name="secondChart">
+        <chart:RadCartesianChart  Grid.Row="0" Opacity="0" x:Name="secondChart" DataContext="{Binding StockHistories}" >
+            
             <chart:RadCartesianChart.VerticalAxis>
-                <chart:LinearAxis/>
-            </chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis HorizontalLocation="Right"/>
+            </chart:RadCartesianChart.VerticalAxis >
             <chart:RadCartesianChart.HorizontalAxis>
-                <chart:DateTimeCategoricalAxis LabelFormat="{}{0,0:dd/MM}"/>
+                <chart:DateTimeCategoricalAxis Visibility="Collapsed" LabelFormat="{}{0,0:dd/MM}" LabelFitMode="MultiLine" LabelInterval="10"/>
             </chart:RadCartesianChart.HorizontalAxis>
-            <chart:RadCartesianChart.Indicators>
-                <chart:MacdhIndicator ItemsSource="{Binding}" ShortPeriod="2" SignalPeriod="4" LongPeriod="10">
-                    <chart:MacdhIndicator.PointTemplate>
-                        <DataTemplate>
-                            <Rectangle Fill="#B45121" Stroke="#80D6F4"/>
-                        </DataTemplate>
-                    </chart:MacdhIndicator.PointTemplate>
-                    <chart:MacdhIndicator.ValueBinding>
-                        <chart:PropertyNameDataPointBinding PropertyName="Close"/>
-                    </chart:MacdhIndicator.ValueBinding>
-                    <chart:MacdhIndicator.CategoryBinding>
-                        <chart:PropertyNameDataPointBinding PropertyName="Date"/>
-                    </chart:MacdhIndicator.CategoryBinding>
-                </chart:MacdhIndicator>
-            </chart:RadCartesianChart.Indicators>
+            <chart:RadCartesianChart.Grid>
+                <chart:CartesianChartGrid MajorLinesVisibility="XY"/>
+            </chart:RadCartesianChart.Grid>
+
+            <chart:RadCartesianChart.Series>
+                
+            </chart:RadCartesianChart.Series>
         </chart:RadCartesianChart>
     </Grid>
 </UserControl>

@@ -33,13 +33,13 @@
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.Below="pageHeader">
             <Grid.RowDefinitions>
-                <RowDefinition Height="500*"/>
-                <RowDefinition Height="500*"/>
-                <RowDefinition Height="500*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <!-- stock chart -->
-            <localctrl:StockChart x:Name="stockChart" Grid.Row="0"
+            <localctrl:StockChart x:Name="stockChart" Grid.Row="0" 
                                   RelativePanel.AlignTopWithPanel="True"
                                   RelativePanel.AlignLeftWithPanel="True"
                                   RelativePanel.AlignRightWithPanel="True"

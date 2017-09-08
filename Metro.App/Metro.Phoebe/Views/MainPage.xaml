@@ -9,6 +9,9 @@
       xmlns:local="using:Sample.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:Sample.ViewModels" 
+      xmlns:vm2="using:Metro.Phoebe.ViewModels"
+      xmlns:localctrl="using:Metro.Phoebe.Controls"
+
       mc:Ignorable="d">
  
     <Page.DataContext>
@@ -20,15 +23,17 @@
                              RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True"
-                             Text="Main Page">
-
+                             >
+            <controls:PageHeader.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Pick up your stock:</TextBlock>
+                    <ComboBox Name="Stocks" ItemsSource="{Binding StockSymbalLists}" Margin="10,0,0,0" PlaceholderText="Pick up stock"/>
+                    <CalendarDatePicker Name="BeginDate" Margin="10,0,0,0" PlaceholderText="Begin Day"></CalendarDatePicker>
+                    <CalendarDatePicker Name="EndDate" Margin="10,0,0,0" PlaceholderText="End Day"></CalendarDatePicker>
+                    <Button  Margin="10,0,0,0" Click="Button_Click" Content="Submit" />
+                </StackPanel>
+            </controls:PageHeader.Content>
             <!--  secondary commands  -->
-            <controls:PageHeader.SecondaryCommands>
-                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Settings" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
-                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
-            </controls:PageHeader.SecondaryCommands>
-
         </controls:PageHeader>
 
         <RelativePanel EntranceNavigationTransitionInfo.IsTargetElement="True"
@@ -36,44 +41,32 @@
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.Below="pageHeader">
-
-
-
-            <TextBox MinWidth="150"
-                     Name="StockTicksTB"
-                        MinHeight="62"
-                        Header="Stock Ticks"
-                        Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        TextWrapping="NoWrap">
-                <Interactivity:Interaction.Behaviors>
-
-                    <!--  enable submit on enter key  -->
-                    <Behaviors:KeyBehavior Key="Enter">
-                        <Core:CallMethodAction MethodName="GoToStockChartPage" TargetObject="{Binding}" />
-                    </Behaviors:KeyBehavior>
-
-                    <!--  focus on textbox when page loads  -->
-                    <Core:EventTriggerBehavior>
-                        <Behaviors:FocusAction />
-                    </Core:EventTriggerBehavior>
-
-                </Interactivity:Interaction.Behaviors>
-            </TextBox>
-
-
-            <Button x:Name="submitButton"
-                    Click="{x:Bind ViewModel.GoToStockChartPage}"
-                    Content="Submit"
-                    RelativePanel.AlignBottomWith="StockTicksTB"
-                    RelativePanel.RightOf="StockTicksTB" />
-
-            <TextBlock x:Name="stateTextBox"
-                       Margin="16,16,0,0"
-                       RelativePanel.AlignLeftWith="StockTicksTB"
-                       RelativePanel.Below="StockTicksTB"
-                       Text="Current Visual State" />
-
+            <RelativePanel.DataContext>
+                <vm2:StockDetailViewModel x:Name="StockDetailVM"/>
+            </RelativePanel.DataContext>
+            <localctrl:StockChart x:Name="stockChart" Grid.Row="0" 
+                                  RelativePanel.AlignTopWithPanel="True"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignRightWithPanel="True" >
+               
+            </localctrl:StockChart>
+            <ItemsControl RelativePanel.AlignBottomWithPanel="True"  
+                       RelativePanel.AlignLeftWithPanel="True"
+                       RelativePanel.AlignRightWithPanel="True"
+                          RelativePanel.Below="stockChart" ItemsSource="{Binding StockStatList}" >
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid AreStickyGroupHeadersEnabled="False" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Desc}"></TextBlock>
+                            <TextBlock Text=":"></TextBlock>
+                            <TextBlock Text="{Binding Value}" Foreground="DarkGreen"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </RelativePanel>
-
     </RelativePanel>
 </Page>
